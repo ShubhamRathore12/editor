@@ -1,42 +1,103 @@
-# `next` recipe
+# Next.js Puck Form Widget
 
-The `next` recipe showcases one of the most powerful ways to implement Puck using to provide an authoring tool for any route in your Next app.
+A Next.js implementation featuring Puck visual builder with a custom Form widget component. This project demonstrates how to extend Puck's capabilities with custom components while implementing database integration and dynamic routing.
 
-## Demonstrates
+## Features
 
 - Next.js App Router implementation
 - JSON database implementation with HTTP API
-- Catch-all routes to use puck for any route on the platform
-- Incremental static regeneration (ISR) for all Puck pages
+- Catch-all routes using Puck for any route on the platform
+- Incremental Static Regeneration (ISR) for all Puck pages
+- Custom Form widget for the Puck editor
+- Real-time form preview and configuration
+- Support for multiple form field types
 
-## Usage
+## Prerequisites
 
-Run the generator and enter `next` when prompted
+- Node.js (v14 or later)
+- npm (v6 or later) or yarn
 
-```
-npx create-puck-app my-app
-```
+## Installation
 
-Start the server
+1. Create a new project using the generator:
+   ```bash
+   npx create-puck-app my-app
+   ```
+   When prompted, select `next` as your template.
 
-```
-yarn dev
-```
+2. Navigate to the project directory:
+   ```bash
+   cd my-app
+   ```
 
-Navigate to the homepage at https://localhost:3000. To edit the homepage, access the Puck editor at https://localhost:3000/edit.
+3. Install dependencies:
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
 
-You can do this for any route on the application, **even if the page doesn't exist**. For example, visit https://localhost:3000/hello/world and you'll receive a 404. You can author and publish a page by visiting https://localhost:3000/hello/world/edit. After publishing, go back to the original URL to see your page.
+## Getting Started
 
-## Using this recipe
+1. Start the development server:
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
 
-To adopt this recipe you will need to:
+2. Open [http://localhost:3000](http://localhost:3000) in your browser to view the homepage
+3. Access the Puck editor at [http://localhost:3000/edit](http://localhost:3000/edit)
 
-- **IMPORTANT** Add authentication to `/edit` routes. This can be done by modifying the example API routes in `/app/puck/api/route.ts` and server component in `/app/puck/[...puckPath]/page.tsx`. **If you don't do this, Puck will be completely public.**
-- Integrate your database into the API calls in `/app/puck/api/route.ts`
-- Implement a custom puck configuration in `puck.config.tsx`
+## Page Creation and Editing
 
-By default, this recipe will generate static pages by setting `dynamic` to [`force-static`](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic) in the `/app/[...puckPath]/page.tsx`. This will strip headers and cookies. If you need dynamic pages, you can delete this.
+- Visit any route on your application, even if it doesn't exist yet (e.g., `/hello/world`)
+- Add `/edit` to any route to access the Puck editor (e.g., `/hello/world/edit`)
+- After publishing, your new page will be available at the original URL
 
-## License
+## Form Widget Features
 
-MIT © [Measured Co.](https://github.com/measuredco)
+The custom Form widget allows you to:
+- Add multiple form fields through the Puck editor interface
+- Configure field properties:
+  - Text labels
+  - Field types (textbox, radio buttons, etc.)
+  - Additional field-specific settings
+- Preview forms in real-time while editing
+
+
+
+
+## Implementation Guide
+
+To implement this in your project:
+
+1. **Add Authentication (REQUIRED)**
+   - Modify `/app/puck/api/route.ts` to include authentication
+   - Update the server component in `/app/puck/[...puckPath]/page.tsx`
+   - ⚠️ **IMPORTANT**: Do not deploy without implementing authentication
+
+2. **Database Integration**
+   - Integrate your database with the API calls in `/app/puck/api/route.ts`
+
+3. **Custom Configuration**
+   - Implement your custom Puck configuration in `puck.config.tsx`
+
+## Static vs Dynamic Pages
+
+By default, this implementation generates static pages using Next.js's `force-static` configuration. To enable dynamic pages:
+
+1. Remove the `dynamic = 'force-static'` setting from `/app/[...puckPath]/page.tsx`
+2. Update the page component to handle dynamic data as needed
+
+
+
+## Security Considerations
+
+⚠️ **Warning**: By default, Puck editor routes (`/edit`) are public. Implement proper authentication before deploying to production.
+
+## Support
+
+For issues and feature requests, please use the GitHub Issues page.
+
+For more information about Puck, visit the [official documentation](https://puck.dev).
